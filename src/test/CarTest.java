@@ -16,7 +16,7 @@ public class CarTest {
     private Car[] newGarage;
     private Finder<Car> finderCar = new Finder<>();
     private Finder<Integer> finderInt = new Finder<>();
-    private Comparator<Car> comp = new EngineComparator();
+    private Comparator<Car> engineComparator = new EngineComparator();
     private Comparator<Integer> intComp = Comparator.naturalOrder();
     private static Random gen = new Random();
     private Integer[] num;
@@ -32,10 +32,12 @@ public class CarTest {
         garage[4] = new Car("Volvo#5",2015,1.4,true);
         System.out.println();
 
-        num = new Integer[20];
+        num = new Integer[17];
         for (int i = 0; i < num.length; i++) {
-            num[i] = gen.nextInt(25);
+            num[i] = gen.nextInt(11);
         }
+
+        Arrays.sort(num);
      }
 
     @org.junit.Test
@@ -48,11 +50,12 @@ public class CarTest {
 
     @Test
     public void findInRange(){
-        newGarage = finderCar.findInRange(garage,garage[3],garage[0],comp);
+        newGarage = finderCar.findInRange(garage,garage[3],garage[0], engineComparator);
+        System.out.println(Arrays.toString(num));
         Integer[] res = finderInt.findInRange(num, 2, 10, intComp);
         System.out.println(Arrays.toString(res));
         System.out.println(Arrays.toString(newGarage));
-        assertEquals(3,newGarage.length);
+        assertEquals(2,newGarage.length);
     }
 
 }
