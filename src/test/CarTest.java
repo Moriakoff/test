@@ -34,15 +34,15 @@ public class CarTest {
 
         num = new Integer[17];
         for (int i = 0; i < num.length; i++) {
-            num[i] = gen.nextInt(11);
+            num[i] = gen.nextInt(6);
         }
 
         Arrays.sort(num);
+        Arrays.sort(garage,engineComparator);
      }
 
     @org.junit.Test
     public void findCarsInEngineRange() {
-        Arrays.sort(garage);
         newGarage = Car.findCarsInEngineRange(garage, 1., 1.6);
         assertEquals(3,newGarage.length);
         System.out.println(Arrays.toString(newGarage));
@@ -50,12 +50,9 @@ public class CarTest {
 
     @Test
     public void findInRange(){
-        newGarage = finderCar.findInRange(garage,garage[3],garage[0], engineComparator);
         System.out.println(Arrays.toString(num));
-        Integer[] res = finderInt.findInRange(num, 2, 10, intComp);
+        Integer[] res = finderInt.findInRange(num, 2, 6, intComp);
         System.out.println(Arrays.toString(res));
-        System.out.println(Arrays.toString(newGarage));
-        assertEquals(2,newGarage.length);
     }
 
 }
