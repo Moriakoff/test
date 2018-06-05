@@ -30,9 +30,6 @@ public class Finder<T extends Comparable<? super T>> {
         }
 
         return Arrays.copyOfRange(arr,minRes,maxRes);
-
-
-
     }
 }
 
