@@ -3,7 +3,7 @@ package model;
 import java.util.Arrays;
 import java.util.Random;
 
-public class Car implements Comparable<Car> {
+public class Car implements Comparable<Car>{
     private String model;
     private int year;
     private double engine;
@@ -76,15 +76,38 @@ public class Car implements Comparable<Car> {
     }
 
     public static Car[] findCarsInEngineRange(Car[] garage,double engMin, double engMax){
-        int cap = 0;
-        Car[] newGarage = garage;
-        for (int i = 0; i < garage.length; i++) {
-            if(garage[i].getEngine() >= engMin && garage[i].getEngine() <=engMax) {
-                newGarage[cap] = garage[i];
-                cap ++;
+
+        /*
+        This two cars are needed to binary search,
+        because it cannot work with Double
+         */
+        Car carMin = new Car();
+        carMin.setEngine(engMin);
+
+        Car carMax = new Car();
+        carMax.setEngine(engMax);
+
+        int minRes =Arrays.binarySearch(garage,carMin);
+        int maxRes =Arrays.binarySearch(garage,carMax);
+
+        if (minRes < 0)
+            minRes = -minRes -1;
+        else for (int i = minRes-1; i >=0; i--) {
+            if (garage[i].getEngine() < engMin){
+                minRes = i+1;
+                break;
             }
         }
-        newGarage = Arrays.copyOf(newGarage, cap);
-        return newGarage;
+        if (maxRes < 0)
+            maxRes = -maxRes - 1;
+        else for (int i = maxRes+1; i <= garage.length-1; i++) {
+            if(garage[i].getEngine() > engMax){
+                maxRes = i-1;
+                break;
+            }
+        }
+
+        return Arrays.copyOfRange(garage,minRes,maxRes);
     }
+
 }

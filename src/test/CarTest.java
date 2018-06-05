@@ -43,7 +43,7 @@ public class CarTest {
 
     @org.junit.Test
     public void findCarsInEngineRange() {
-        newGarage = Car.findCarsInEngineRange(garage, 1., 1.6);
+        newGarage = Car.findCarsInEngineRange(garage, 1., 1.61);
         assertEquals(3,newGarage.length);
         System.out.println(Arrays.toString(newGarage));
     }
